@@ -1,0 +1,74 @@
+<div class="card p-3">
+    <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit($event)">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="card-number">Credit Card Number<sup>*</sup></label>
+                    <input type="text" class="form-control" id="creditCardNumber" formControlName="creditCardNumber" name="creditCardNumber" />
+                    <div *ngIf="creditCardForm.get('creditCardNumber').invalid &&  creditCardForm.get('creditCardNumber').errors &&  (creditCardForm.get('creditCardNumber').dirty || creditCardForm.get('creditCardNumber').touched)">
+                        <small class="text-danger" *ngIf="creditCardForm.get('creditCardNumber').hasError('required')">This field is required. </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="card-number">Credit Card Holder<sup>*</sup></label>
+                    <input type="text" class="form-control" id="creditHolder" formControlName="creditHolder" name="creditHolder" />
+                    <div *ngIf="creditCardForm.get('creditHolder').invalid &&  creditCardForm.get('creditHolder').errors &&  (creditCardForm.get('creditHolder').dirty || creditCardForm.get('creditHolder').touched)">
+                        <small class="text-danger" *ngIf="creditCardForm.get('creditHolder').hasError('required')">This field is required. </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="card-number">Expiration Date<sup>*</sup></label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="expirationDate" formControlName="expirationDate" name="expirationDate" ngbDatepicker #d="ngbDatepicker" />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary btn-calendarcalendar" (click)="d.toggle()" type="button">
+                                <span class="material-icons"
+                                    style="font-size: 18px;position: relative;top: 3px;">calendar_today</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="creditCardForm.get('expirationDate').invalid &&  creditCardForm.get('expirationDate').errors &&  (creditCardForm.get('expirationDate').dirty || creditCardForm.get('expirationDate').touched)">
+                        <small class="text-danger" *ngIf="creditCardForm.get('expirationDate').hasError('required')">This field is required. </small>
+                        <small class="text-danger" *ngIf="creditCardForm.get('expirationDate').hasError('dateValidatorError')">The date cannot be past. </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="cvc">Security Code</label>
+                    <input type="text" class="form-control" id="securityCode" formControlName="securityCode" name="securityCode" />
+                    <div *ngIf="(creditCardForm.get('securityCode').dirty || creditCardForm.get('securityCode').touched) && creditCardForm.get('securityCode').value != '' &&  creditCardForm.get('securityCode').errors">
+                        <small class="text-danger">This field should be 3 digit.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="card-number">Amount<sup>*</sup></label>
+                    <input type="number" class="form-control" id="amount" formControlName="amount" name="amount" />
+                    <div *ngIf="creditCardForm.get('amount').invalid &&  creditCardForm.get('amount').errors &&  (creditCardForm.get('amount').dirty || creditCardForm.get('amount').touched)">
+                        <small class="text-danger" *ngIf="creditCardForm.get('amount').hasError('required')">This field is required. </small>
+                        <small class="text-danger" *ngIf="creditCardForm.get('amount').hasError('min')">This field value should be more than 0. </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <button type="submit" class="form-control btn-secondary" [disabled]="!creditCardForm.valid">Pay</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
